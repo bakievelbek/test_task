@@ -125,6 +125,10 @@ class Game(BaseGame):
             new_value = self.get_next_random() % 10 + 1
             self.cur['bonus_simbols'].append(new_value)
             self.cur['raunds_left'] = self.ctx['bonus']['raunds_left']
+
+        # Task #1 these two lines below should be removed.
+        # The reason explained in README file in the root directory
+        # ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
         else:
             self.cur['raunds_left'] -= 1
 
