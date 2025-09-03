@@ -91,11 +91,12 @@ class Game(BaseGame):
         self.ctx['spins'] = self.model_cls.spins()
         self.ctx['bonus'] = self.model_cls.bonus()
 
-        self.cur['bet'] = 1
+        self.cur['bet'] = 10
         self.cur['balance'] = 100  # Starting balance
         self.cur['bonus_triggered'] = False
         self.cur['spin_win'] = 0
         self.cur['bonus_total_win'] = 0
+        self.cur['payment_mult'] = 1.2
 
     def handler_spin(self):
         # Reset spin win
@@ -107,7 +108,8 @@ class Game(BaseGame):
             self.cur['board'][2] = SYMBOL_BONUS
             self.cur['bonus_triggered'] = True
         else:
-            win = self.get_next_random() % 5
+            rand = self.get_next_random() % 5
+            win = int(round(rand * self.cur["payment_mult"]))
             self.cur['balance'] += win
             self.cur['spin_win'] = win
             self.cur['bonus_triggered'] = False
