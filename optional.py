@@ -54,16 +54,15 @@ class BaseGame:
 
         while total_spins < num_spins:
             self.current_state = 'spin'
+            self.cur['balance'] -= self.cur['bet']
             self.handler_spin()
             total_spins += 1
             total_win += self.cur.get('spin_win', 0)
             if self.cur.get('bonus_triggered'):
                 total_bonus_games += 1
                 self.handler_bonus_init()
-                # extra fix:
-                # before:
-                # while self.cur['raunds_left'] != 0:
-                while self.cur['raunds_left'] > 0:
+
+                while self.cur['raunds_left'] != 0:
                     self.handler_bonus()
                 total_win += self.cur.get('bonus_total_win', 0)
 
@@ -92,6 +91,7 @@ class Game(BaseGame):
         self.ctx['spins'] = self.model_cls.spins()
         self.ctx['bonus'] = self.model_cls.bonus()
 
+        self.cur['bet'] = 1
         self.cur['balance'] = 100  # Starting balance
         self.cur['bonus_triggered'] = False
         self.cur['spin_win'] = 0
@@ -126,12 +126,6 @@ class Game(BaseGame):
             new_value = self.get_next_random() % 10 + 1
             self.cur['bonus_simbols'].append(new_value)
             self.cur['raunds_left'] = self.ctx['bonus']['raunds_left']
-
-        # Task #1 these two lines below should be removed.
-        # The reason explained in README file in the root directory
-        # ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
-        else:
-            self.cur['raunds_left'] -= 1
 
         if self.cur['raunds_left'] == 0:
             total_bonus_win = sum(self.cur['bonus_simbols'])
