@@ -70,3 +70,44 @@ Else if RTP > target_high → set high = mid.
 Else (RTP inside target range) → stop and return (mid, rtp).
 
 
+## Task 2
+
+Considering potential issues, solutions 1 by 1 based in the Task 1:
+
+- in the system we have number like 20 (bonus chance) and 50 (new_symbol_chance). 
+QAs must know that numbers which make it a bit complicated for them. So developers 
+should consider a scenario where QAs just insert human-readable indicator in 
+some config file and in the code that human-readable indicator converted into a number
+
+- If balance in the system is changed and some constant values are changed we still consider the 
+solution for the first issue because from our side that constant values should changed and 
+still mapped to human-readable indicators
+
+- Some pretest system can be created which checks out constants. for example we calculate some thresholds
+yesterday is was``` value = (roll % 10) + 1```. Today it’s ```value = (roll % 12) + 1```. 
+We expect the specific value, for example 7, but we are getting different. and here is fails because we changed 10 -> 12
+
+- Very interesting issue, I didn't get that, but I think I have some 
+thoughts in my mind which can be discussed in a live interview
+
+- Provide for QAs progress manipulation tweak. So that they input numbers and 
+progress manually. Very useful for the developers too, when they want to test their changes
+
+
+----
+### Summary
+
+In general, it took about __1.5 hours__ to complete the whole task.  
+I found a bug in __10 minutes__ and started to write the explanations and
+solution which took __20 minutes__ (I also create git and pushed the code there)
+
+about __30 minutes__ to complete the optional task and understand how to balance the game
+Since it is optional and I am running out of time I just wrote a pseudocode here.
+Which can be also rewritten during the interview and implemented in the code
+
+and the rest __30 minutes__ to understand and write something for the second task
+
+---
+
+PS I spent about 40 minutes and played slots before starting the task. 
+It allowed me to understand the task better
